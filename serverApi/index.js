@@ -3,12 +3,15 @@ const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
 const cors = require('cors');
 const config = require('./config');
+const artists = require('./app/artists');
 
 const app = express();
 const port = 8000;
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/artists', artists);
 
 const run = async () => {
   await mongoose.connect(config.mongo.db, config.mongo.options);
