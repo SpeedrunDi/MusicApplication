@@ -42,6 +42,10 @@ router.get('/:id', async (req, res) => {
       .findById(req.params.id)
       .populate('artist', 'name image information');
 
+    if (!album) {
+      return res.status(404).send({message: 'Album not found'})
+    }
+
     res.send(album);
   } catch (e) {
     res.sendStatus(500);
