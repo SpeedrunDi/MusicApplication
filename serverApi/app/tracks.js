@@ -17,9 +17,14 @@ router.get('/', async (req, res) => {
         albumsId = albumsObj.map(album => album._id);
       }
 
+      query.album = {$in: albumsId};
       const tracks = await Track
-        .find({$in: albumsId})
+        .find(query)
         .populate('album', 'title');
+
+      if (!tracks) {
+        return res.status(404).send({message: 'Tracks not found'});
+      }
 
       res.send(tracks);
     } else {
@@ -31,10 +36,34 @@ router.get('/', async (req, res) => {
         .find(query)
         .populate('album', 'title');
 
+      if (!tracks) {
+        return res.status(404).send({message: 'Tracks not found'});
+      }
+
       res.send(tracks);
     }
   } catch {
     res.sendStatus(500);
+  }
+});
+
+router.post('/', async (req, res) => {
+  const {title, album, duration} = req.body;
+
+  if (!title || !album || !duration) {
+    return res.status(400).send({error: 'Data not valid'});
+  }
+
+  const trackData = {title, album, duration};
+
+  const track = new Track(trackData);
+
+  try {
+    await track.save();
+
+    res.send(track);
+  } catch (e) {
+    res.status(400).send({error: e.errors});
   }
 });
 

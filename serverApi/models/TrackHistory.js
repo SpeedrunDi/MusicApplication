@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const idValidator = require('mongoose-id-validator');
 const Schema = mongoose.Schema;
 
 const TrackHistorySchema = new Schema({
@@ -18,6 +19,7 @@ const TrackHistorySchema = new Schema({
   }
 });
 
-const TrackHistory = mongoose.model('TrackHistory', TrackHistorySchema);
+TrackHistorySchema.plugin(idValidator, {message: 'Bad ID value for {PATH}'});
+const TrackHistory = mongoose.model('Track_history', TrackHistorySchema);
 
 module.exports = TrackHistory;
