@@ -1,7 +1,10 @@
-const App = () => (
-  <div className="App">
+import {Route, Switch} from "react-router-dom";
+import Main from "./containers/Main/Main";
 
-  </div>
+const App = () => (
+  <Switch>
+    <Route path="/" exact component={Main}/>
+  </Switch>
 );
 
 export default App;
