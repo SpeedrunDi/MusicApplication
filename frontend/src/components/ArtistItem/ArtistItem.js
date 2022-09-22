@@ -12,8 +12,7 @@ const useStyles = makeStyles()(() => ({
   },
   artistName: {
     color: "green",
-    textDecoration: "underline",
-    cursor: "pointer"
+    textDecoration: "underline"
   }
 }));
 
@@ -28,11 +27,11 @@ const ArtistItem = ({artist}) => {
 
   return (
     <Grid container alignItems="center" className={classes.artistBlock}>
-      <Grid item marginRight="40px">
+      <Grid item marginRight="40px" component={Link} to={`/artists/${artist._id}`}>
         <img src={image} style={{width: "120px", height: "auto"}} alt={artist.name}/>
       </Grid>
       <Grid item>
-        <Typography variant="h4" component={Link} to={`/artist/${artist._id}`} className={classes.artistName}>
+        <Typography variant="h4" component={Link} to={`/artists/${artist._id}`} className={classes.artistName}>
           {artist.name}
         </Typography>
       </Grid>

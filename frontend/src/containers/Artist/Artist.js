@@ -12,13 +12,16 @@ const Artist = ({match}) => {
     dispatch(getArtistAlbums(match.params.id));
   }, [dispatch, match]);
 
-  return (
+  return albums.length !== 0 ? (
     <Box width="max-content" marginX="auto" paddingY="20px">
-      {albums.length !== 0 ? albums.map(album => (
+      <Typography variant="h3" textAlign="center" marginBottom="30px">
+        {albums[0].artist.name}
+      </Typography>
+      {albums.map(album => (
         <AlbumItem key={album._id} album={album}/>
-      )) : <Typography variant="h2">No albums</Typography>}
+      ))}
     </Box>
-  );
+  ) : <Typography variant="h2" textAlign="center">No albums</Typography>;
 };
 
 export default Artist;
