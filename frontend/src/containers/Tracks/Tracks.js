@@ -16,9 +16,9 @@ const Tracks = ({match}) => {
     dispatch(getAlbumTracks(match.params.id));
   }, [dispatch, match]);
 
-  return tracks.length !== 0 ? (
-    <Box width="max-content" marginX="auto" paddingY="20px">
-      {loading ? (<Box width="max-content" marginX="auto"><CircularProgress /></Box>) :
+  return loading ? (<Box width="max-content" margin="100px auto 0"><CircularProgress /></Box>) :
+    (<Box width="max-content" marginX="auto" paddingY="20px">
+      {tracks.length !== 0 ?
         (
           <>
             <Typography variant="h3" textAlign="center" marginBottom="30px">
@@ -31,10 +31,10 @@ const Tracks = ({match}) => {
               <TrackItem key={track._id} track={track}/>
             ))}
           </>
-        )
+        ) : <Typography variant="h2" textAlign="center">No Tracks</Typography>
       }
     </Box>
-  ) : <Typography variant="h2" textAlign="center">No albums</Typography>;
+  );
 };
 
 export default Tracks;

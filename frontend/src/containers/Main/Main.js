@@ -13,7 +13,7 @@ const Main = () => {
     dispatch(getArtists());
   }, [dispatch]);
 
-  return loading ? (<Box width="max-content" marginX="auto"><CircularProgress /></Box>)
+  return loading ? (<Box width="max-content" margin="100px auto 0"><CircularProgress /></Box>)
     : (
     <Box width="max-content" marginX="auto" paddingY="20px">
       <Typography variant="h2" marginBottom="40px" textAlign="center">

@@ -13,9 +13,9 @@ const Artist = ({match}) => {
     dispatch(getArtistAlbums(match.params.id));
   }, [dispatch, match]);
 
-  return albums.length !== 0 ? (
+  return loading ? (<Box width="max-content" margin="100px auto 0"><CircularProgress /></Box>) : (
     <Box width="max-content" marginX="auto" paddingY="20px">
-      {loading ? (<Box width="max-content" marginX="auto"><CircularProgress /></Box>) :
+      {albums.length !== 0 ?
         (
           <>
             <Typography variant="h3" textAlign="center" marginBottom="30px">
@@ -25,10 +25,10 @@ const Artist = ({match}) => {
               <AlbumItem key={album._id} album={album}/>
             ))}
           </>
-        )
+        ) : <Typography variant="h2" textAlign="center">No albums</Typography>
       }
     </Box>
-  ) : <Typography variant="h2" textAlign="center">No albums</Typography>;
+  );
 };
 
 export default Artist;
