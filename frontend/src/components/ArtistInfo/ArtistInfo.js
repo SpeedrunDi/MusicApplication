@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Typography} from "@mui/material";
 import {makeStyles} from "tss-react/mui";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles()(() => ({
   artistBlock: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles()(() => ({
   }
 }));
 
-const Artist = ({artist}) => {
+const ArtistInfo = ({artist}) => {
   const {classes} = useStyles();
 
   return (
@@ -25,11 +26,13 @@ const Artist = ({artist}) => {
       )}
       <Grid item>
         <Typography variant="h4" className={classes.artistName}>
-          {artist.name}
+          <Link to={`/artist/${artist._id}`}>
+            {artist.name}
+          </Link>
         </Typography>
       </Grid>
     </Grid>
   );
 };
 
-export default Artist;
+export default ArtistInfo;

@@ -6,12 +6,14 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from './App';
 import artistsReducer from "./store/reducers/artistsReducer";
+import albumsReducer from "./store/reducers/albumsReducer";
 import './index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  artists: artistsReducer
+  artists: artistsReducer,
+  albums: albumsReducer
 });
 
 const store = createStore(
