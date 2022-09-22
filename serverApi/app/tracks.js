@@ -54,11 +54,28 @@ router.post('/', async (req, res) => {
     return res.status(400).send({error: 'Data not valid'});
   }
 
-  const trackData = {title, album, duration};
 
-  const track = new Track(trackData);
 
   try {
+    const lengthTracks = await Track.find().count();
+    let number = lengthTracks + 0;
+
+    if (number === 0) {
+      number = 1;
+    } else {
+      const [lastTrack] = await Track.find({}, {number: 1}).limit(1).sort({$natural:-1});
+
+      number = lastTrack.number + 1;
+    }
+
+    const trackData = {
+      number: number,
+      title,
+      album,
+      duration
+    };
+
+    const track = new Track(trackData);
     await track.save();
 
     res.send(track);

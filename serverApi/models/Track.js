@@ -4,6 +4,11 @@ const uniqueValidator = require("mongoose-unique-validator");
 const Schema = mongoose.Schema;
 
 const TrackSchema = new Schema({
+  number: {
+    type: Number,
+    required: true,
+    unique: true
+  },
   title: {
     type: String,
     required: true,
