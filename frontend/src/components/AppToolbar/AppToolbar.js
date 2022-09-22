@@ -5,7 +5,7 @@ import Logo from "../Logo/Logo";
 
 const useStyles = makeStyles()(theme => ({
   staticToolbar: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   }
 }));
 
@@ -15,13 +15,13 @@ const AppToolbar = () => {
   return (
     <>
       <AppBar position="fixed">
-        <AppToolbar>
-          <Grid container justifyContent="space-between" alignItems="center">
+        <Toolbar>
+          <Grid container justifyContent="space-between" alignItems="center" paddingTop="10px">
             <Typography variant="h6">
               <Logo/>
             </Typography>
           </Grid>
-        </AppToolbar>
+        </Toolbar>
       </AppBar>
       <Toolbar className={classes.staticToolbar}/>
     </>

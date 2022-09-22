@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png';
 const Logo = () => {
   return (
     <Link to='/'>
-      <img src={logo} style={{width: "90px", height: "auto"}} alt="Logo"/>
+      <img src={logo} style={{width: "80px", height: "auto"}} alt="Logo"/>
     </Link>
   );
 };
