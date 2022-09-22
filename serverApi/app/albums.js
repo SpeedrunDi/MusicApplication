@@ -28,6 +28,7 @@ router.get('/', async (req, res) => {
   try {
     const albums = await Album
       .find(query)
+      .sort({release: 1})
       .populate('artist', 'name');
 
     res.send(albums);
