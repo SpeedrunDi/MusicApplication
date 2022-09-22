@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Box, Typography} from "@mui/material";
+import {Box, CircularProgress, Typography} from "@mui/material";
 import {getArtists} from "../../store/actions/artistsActions";
 import ArtistItem from "../../components/ArtistItem/ArtistItem";
 
 const Main = () => {
   const dispatch = useDispatch();
   const artists = useSelector(state => state.artists.artists);
+  const loading = useSelector(state => state.artists.loading);
 
   useEffect(() => {
     dispatch(getArtists());
   }, [dispatch]);
 
-  return (
+  return loading ? (<Box width="max-content" marginX="auto"><CircularProgress /></Box>)
+    : (
     <Box width="max-content" marginX="auto" paddingY="20px">
       <Typography variant="h2" marginBottom="40px" textAlign="center">
         Artists
