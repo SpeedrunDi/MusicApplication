@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container} from "@mui/material";
-import AppToolbar from "../../AppToolbar/AppToolbar";
+import AppToolbar from "../AppToolbar/AppToolbar";
 
 const Layout = ({children}) => {
   return (
