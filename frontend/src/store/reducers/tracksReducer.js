@@ -1,4 +1,9 @@
-import {GET_ALBUM_TRACKS_FAILURE, GET_ALBUM_TRACKS_REQUEST, GET_ALBUM_TRACKS_SUCCESS} from "../actions/tracksActions";
+import {
+  GET_ALBUM_TRACKS_FAILURE,
+  GET_ALBUM_TRACKS_REQUEST,
+  GET_ALBUM_TRACKS_SUCCESS, POST_TRACK_HISTORY_FAILURE,
+  POST_TRACK_HISTORY_REQUEST, POST_TRACK_HISTORY_SUCCESS
+} from "../actions/tracksActions";
 
 const initialState = {
   tracks: [],
@@ -13,6 +18,13 @@ const tracksReducer = (state = initialState, action) => {
     case GET_ALBUM_TRACKS_SUCCESS:
       return {...state, loading: false, tracks: action.payload};
     case GET_ALBUM_TRACKS_FAILURE:
+      return {...state, loading: false, error: action.payload};
+
+    case POST_TRACK_HISTORY_REQUEST:
+      return {...state, loading: true, error: null};
+    case POST_TRACK_HISTORY_SUCCESS:
+      return {...state, loading: false};
+    case POST_TRACK_HISTORY_FAILURE:
       return {...state, loading: false, error: action.payload};
     default:
       return state;
