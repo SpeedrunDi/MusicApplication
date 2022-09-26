@@ -2,6 +2,8 @@ import {useState} from "react";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {Box} from "@mui/material";
+import {NavLink} from "react-router-dom";
 
 const UserMenu = ({user}) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -16,7 +18,8 @@ const UserMenu = ({user}) => {
   };
 
   return (
-    <div>
+    <Box>
+      <Button component={NavLink} to="/user_history" color="inherit" sx={{fontSize: "18px"}}>User history</Button>
       <Button
         id="basic-button"
         color="inherit"
@@ -41,7 +44,7 @@ const UserMenu = ({user}) => {
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
-    </div>
+    </Box>
   );
 };
 

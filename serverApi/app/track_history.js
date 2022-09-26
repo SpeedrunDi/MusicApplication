@@ -1,23 +1,24 @@
 const express = require('express');
-const User = require("../models/User");
 const TrackHistory = require("../models/TrackHistory");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  const token = req.get('Authorization');
-
-  if (!token) {
-    return res.status(401).send({error: 'No token present'});
-  }
-
+router.get('/', auth,async (req, res) => {
   try {
-    const user = await User.findOne({token});
+    const tracks_history = await TrackHistory
+      .find()
+      .sort({datetime: -1})
+      .populate('track', 'title');
 
-    if (!user) {
-      return res.status(401).send({error: 'Unauthorized'});
-    }
+    res.send(tracks_history);
+  } catch (e) {
+    res.status(500).send({error: e.errors});
+  }
+});
 
+router.post('/', auth, async (req, res) => {
+  try {
     if (!req.body.track) {
       return res.status(400).send({error: 'Data not valid'});
     }
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
     const datetime = new Date().toISOString();
 
     const track_historyData = {
-      user: user._id,
+      user: req.user._id,
       track: req.body.track,
       datetime
     };

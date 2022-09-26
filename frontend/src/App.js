@@ -6,6 +6,7 @@ import Artist from "./containers/Artist/Artist";
 import Tracks from "./containers/Tracks/Tracks";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
+import UserHistory from "./containers/UserHistory/UserHistory";
 
 const App = () => (
   <Layout>
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/albums/:id" component={Tracks}/>
       <Route path="/register" component={Register}/>
       <Route path="/login" component={Login}/>
+      <Route path="/user_history" component={UserHistory}/>
       <Route path="*" render={() => <Typography variant="h1" textAlign="center">Not found!</Typography>}/>
     </Switch>
   </Layout>
