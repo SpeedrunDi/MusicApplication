@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid, Typography} from "@mui/material";
 
-const TrackItem = ({track, onPlayMusic}) => {
+const TrackItem = ({track, onPlayMusic, index}) => {
   return (
     <Grid
       container
@@ -18,7 +18,7 @@ const TrackItem = ({track, onPlayMusic}) => {
     >
       <Grid item>
         <Typography variant="h5" marginRight="30px">
-          <strong>{track.number}: </strong>
+          <strong>{index}: </strong>
         </Typography>
       </Grid>
       <Grid item>

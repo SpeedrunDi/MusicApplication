@@ -1,4 +1,5 @@
 import axiosApi from "../../axiosApi";
+import {toast} from "react-toastify";
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -28,6 +29,15 @@ export const registerUser = userData => {
       await axiosApi.post('/users', userData);
 
       dispatch(registerUserSuccess());
+      toast.success('You have successfully registered!', {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       if (e.response && e.response.data) {
         dispatch(registerUserFailure(e.response.data));
@@ -47,6 +57,15 @@ export const loginUser = userData => {
       const response = await axiosApi.post('/users/sessions', userData);
 
       dispatch(loginUserSuccess(response.data.user));
+      toast.success('You have successfully logged in!', {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       if (e.response && e.response.data) {
         dispatch(loginUserFailure(e.response.data));

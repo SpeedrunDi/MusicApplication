@@ -31,8 +31,8 @@ const Tracks = ({match}) => {
             <Typography variant="h3" textAlign="center" marginBottom="30px">
               {tracks[0].album.title}
             </Typography>
-            {tracks.map(track => (
-              <TrackItem key={track._id} track={track} onPlayMusic={() => playMusic(track._id)}/>
+            {tracks.map((track, i) => (
+              <TrackItem key={track._id} track={track} index={i + 1} onPlayMusic={() => playMusic(track._id)}/>
             ))}
           </>
         ) : <Typography variant="h2" textAlign="center">No Tracks</Typography>

@@ -29,7 +29,7 @@ router.post('/sessions', async  (req, res) => {
    const user = await User.findOne({username: req.body.username});
 
    if (!user) {
-     return res.status(401).send({error: 'Username not found'});
+     return res.status(401).send({error: 'Username and password if wrong'});
    }
 
    const isMatch = await user.checkPassword(req.body.password);

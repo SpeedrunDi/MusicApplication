@@ -46,7 +46,7 @@ UserSchema.methods.generateToken = function () {
   this.token = nanoid();
 };
 
-UserSchema.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique'});
+UserSchema.plugin(uniqueValidator, {message: 'Error, such username already exists'});
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

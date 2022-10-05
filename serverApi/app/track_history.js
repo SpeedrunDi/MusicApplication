@@ -1,6 +1,7 @@
 const express = require('express');
 const TrackHistory = require("../models/TrackHistory");
 const auth = require("../middleware/auth");
+const Track = require("../models/Track");
 
 const router = express.Router();
 
@@ -23,6 +24,11 @@ router.post('/', auth, async (req, res) => {
       return res.status(400).send({error: 'Data not valid'});
     }
 
+    const track = await Track.findById(req.body.track);
+    if (!track) {
+      return res.status(404).send({message: 'Track not found!'});
+    }
+
     const datetime = new Date().toISOString();
 
     const track_historyData = {
@@ -37,7 +43,7 @@ router.post('/', auth, async (req, res) => {
 
     res.send(track_history);
   } catch (e) {
-    res.status(404).send({message: 'Track not found!'});
+    res.status(500).send({error: e.errors});
   }
 });
 
