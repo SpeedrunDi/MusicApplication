@@ -37,7 +37,7 @@ const Login = ({history}) => {
   const dispatch = useDispatch();
   const error = useSelector(state => state.users.loginError);
   const loading = useSelector(state => state.users.loginLoading);
-  console.log(error)
+
   const [user, setUser] = useState({
     username: '',
     password: '',
