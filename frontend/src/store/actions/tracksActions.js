@@ -13,6 +13,11 @@ export const GET_TRACK_HISTORY_REQUEST = 'GET_TRACK_HISTORY_REQUEST';
 export const GET_TRACK_HISTORY_SUCCESS = 'GET_TRACK_HISTORY_SUCCESS';
 export const GET_TRACK_HISTORY_FAILURE = 'GET_TRACK_HISTORY_FAILURE';
 
+export const POST_TRACK_REQUEST = 'POST_TRACK_REQUEST';
+export const POST_TRACK_SUCCESS = 'POST_TRACK_SUCCESS';
+export const POST_TRACK_FAILURE = 'POST_TRACK_FAILURE';
+export const CLEAR_TRACK_ERRORS = 'CLEAR_TRACK_ERRORS';
+
 const getAlbumTracksRequest = () => ({type: GET_ALBUM_TRACKS_REQUEST});
 const getAlbumTracksSuccess = tracks => ({type: GET_ALBUM_TRACKS_SUCCESS, payload: tracks});
 const getAlbumTracksFailure = error => ({type: GET_ALBUM_TRACKS_FAILURE, payload: error});
@@ -24,6 +29,11 @@ const postTrackHistoryFailure = error => ({type: POST_TRACK_HISTORY_FAILURE, pay
 const getTrackHistoryRequest = () => ({type: GET_TRACK_HISTORY_REQUEST});
 const getTrackHistorySuccess = tracks_history => ({type: GET_TRACK_HISTORY_SUCCESS, payload: tracks_history});
 const getTrackHistoryFailure = error => ({type: GET_TRACK_HISTORY_FAILURE, payload: error});
+
+const postTrackRequest = () => ({type: POST_TRACK_REQUEST});
+const postTrackSuccess = () => ({type: POST_TRACK_SUCCESS});
+const postTrackFailure = error => ({type: POST_TRACK_FAILURE, payload: error});
+export const clearTrackErrors = () => ({type: CLEAR_TRACK_ERRORS});
 
 export const getAlbumTracks = id => {
   return async dispatch => {
@@ -81,6 +91,24 @@ export const getTrackHistory = () => {
         });
       }
       dispatch(getTrackHistoryFailure(e));
+    }
+  };
+};
+
+export const postTrack = (trackData) => {
+  return async dispatch => {
+    try {
+      dispatch(postTrackRequest());
+      await axiosApi.post('/tracks', trackData);
+
+      dispatch(postTrackSuccess());
+    } catch (e) {
+      if (e.response && e.response.data) {
+        dispatch(postTrackFailure(e.response.data));
+      } else {
+        dispatch(postTrackFailure({global: 'No internet'}));
+      }
+      throw e;
     }
   };
 };

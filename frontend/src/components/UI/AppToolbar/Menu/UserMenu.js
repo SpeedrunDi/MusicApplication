@@ -57,6 +57,7 @@ const UserMenu = ({user}) => {
       >
         <MenuItem onClick={handleClose} component={Link} to="/artists/new">Add Artist</MenuItem>
         <MenuItem onClick={handleClose} component={Link} to="/albums/new">Add Album</MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to="/tracks/new">Add Track</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Box>

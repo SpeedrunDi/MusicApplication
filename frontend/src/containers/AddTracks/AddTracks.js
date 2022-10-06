@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {Typography} from "@mui/material";
-import {clearAlbumErrors, postAlbum} from "../../store/actions/albumsActions";
 import {getArtists} from "../../store/actions/artistsActions";
-import AlbumForm from "../../components/AlbumForm/AlbumForm";
+import {clearTrackErrors, postTrack} from "../../store/actions/tracksActions";
+import TrackForm from "../../components/TrackForm/TrackForm";
 
-const AddAlbum = ({history}) => {
+const AddTracks = ({history}) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.users.user);
   const artists = useSelector(state => state.artists.artists);
-  const error = useSelector(state => state.albums.error);
+  const error = useSelector(state => state.tracks.error);
 
   useEffect(() => {
     dispatch(getArtists());
@@ -18,7 +18,7 @@ const AddAlbum = ({history}) => {
 
   useEffect(() => {
     return () => {
-      dispatch(clearAlbumErrors());
+      dispatch(clearTrackErrors());
     };
   }, [dispatch]);
 
@@ -26,8 +26,8 @@ const AddAlbum = ({history}) => {
     return <Redirect to="/login"/>
   }
 
-  const onAlbumFormSubmit = async albumData => {
-    await dispatch(postAlbum(albumData));
+  const onTrackFormSubmit = async trackData => {
+    await dispatch(postTrack(trackData));
     history.replace("/");
   };
 
@@ -38,10 +38,10 @@ const AddAlbum = ({history}) => {
         marginY="60px"
         variant="h4"
       >
-        Add new album
+        Add new track
       </Typography>
-      <AlbumForm
-        onSubmit={onAlbumFormSubmit}
+      <TrackForm
+        onSubmit={onTrackFormSubmit}
         artists={artists}
         error={error}
       />
@@ -49,4 +49,4 @@ const AddAlbum = ({history}) => {
   );
 };
 
-export default AddAlbum;
+export default AddTracks;

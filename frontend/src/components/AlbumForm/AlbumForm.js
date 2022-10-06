@@ -68,7 +68,7 @@ const AlbumForm = ({onSubmit, artists, error}) => {
         />
 
         <Grid item>
-          <FormControl required fullWidth error={getFieldError('artist')}>
+          <FormControl required fullWidth error={Boolean(getFieldError('artist'))}>
             <InputLabel id="select-artist">Select artist</InputLabel>
             <Select
               labelId="select-artist"
@@ -83,7 +83,10 @@ const AlbumForm = ({onSubmit, artists, error}) => {
                 </MenuItem>
               ))}
             </Select>
-            <FormHelperText>{getFieldError('artist')}</FormHelperText>
+            {
+              error && error.errors && error.errors.artist &&
+                <FormHelperText>Path `artist` is required</FormHelperText>
+            }
           </FormControl>
         </Grid>
 

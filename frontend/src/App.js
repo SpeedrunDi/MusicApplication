@@ -9,6 +9,7 @@ import Login from "./containers/Login/Login";
 import UserHistory from "./containers/UserHistory/UserHistory";
 import AddArtist from "./containers/AddArtist/AddArtist";
 import AddAlbum from "./containers/AddAlbum/AddAlbum";
+import AddTracks from "./containers/AddTracks/AddTracks";
 
 const App = () => (
   <Layout>
@@ -18,6 +19,7 @@ const App = () => (
       <Route path="/artists/:id" component={Artist}/>
       <Route path="/albums/new" component={AddAlbum}/>
       <Route path="/albums/:id" component={Tracks}/>
+      <Route path="/tracks/new" component={AddTracks}/>
       <Route path="/register" component={Register}/>
       <Route path="/login" component={Login}/>
       <Route path="/user_history" component={UserHistory}/>

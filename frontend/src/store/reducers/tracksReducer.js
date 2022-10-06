@@ -1,13 +1,14 @@
 import {
+  CLEAR_TRACK_ERRORS,
   GET_ALBUM_TRACKS_FAILURE,
   GET_ALBUM_TRACKS_REQUEST,
   GET_ALBUM_TRACKS_SUCCESS,
   GET_TRACK_HISTORY_FAILURE,
   GET_TRACK_HISTORY_REQUEST,
-  GET_TRACK_HISTORY_SUCCESS,
+  GET_TRACK_HISTORY_SUCCESS, POST_TRACK_FAILURE,
   POST_TRACK_HISTORY_FAILURE,
   POST_TRACK_HISTORY_REQUEST,
-  POST_TRACK_HISTORY_SUCCESS
+  POST_TRACK_HISTORY_SUCCESS, POST_TRACK_REQUEST, POST_TRACK_SUCCESS
 } from "../actions/tracksActions";
 
 const initialState = {
@@ -39,6 +40,16 @@ const tracksReducer = (state = initialState, action) => {
       return {...state, loading: false, tracksHistory: action.payload};
     case GET_TRACK_HISTORY_FAILURE:
       return {...state, loading: false, error: action.payload};
+
+    case POST_TRACK_REQUEST:
+      return {...state, loading: true, error: null};
+    case POST_TRACK_SUCCESS:
+      return {...state, loading: false};
+    case POST_TRACK_FAILURE:
+      return {...state, loading: false, error: action.payload};
+    case CLEAR_TRACK_ERRORS:
+      return {...state, error: null};
+
     default:
       return state;
   }

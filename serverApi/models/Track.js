@@ -27,7 +27,7 @@ const TrackSchema = new Schema({
 
 TrackSchema.plugin(AutoIncrement, {inc_field: 'number'});
 TrackSchema.plugin(idValidator, {message: 'Bad ID value for {PATH}'});
-TrackSchema.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique'});
+TrackSchema.plugin(uniqueValidator, {message: 'Error, this {PATH} already exists!'});
 const Track = mongoose.model('Track', TrackSchema);
 
 module.exports = Track;
