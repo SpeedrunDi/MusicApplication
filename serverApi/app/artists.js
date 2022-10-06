@@ -52,7 +52,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     res.send(artist);
   } catch (e) {
-    res.status(400).send(e => console.error(e));
+    res.status(400).send(e);
   }
 });
 

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Box} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {logoutUser} from "../../../../store/actions/usersActions";
 
 const UserMenu = ({user}) => {
@@ -26,7 +26,14 @@ const UserMenu = ({user}) => {
 
   return (
     <Box>
-      <Button component={NavLink} to="/user_history" color="inherit" sx={{fontSize: "18px"}}>User history</Button>
+      <Button
+        component={Link}
+        to="/user_history"
+        color="inherit"
+        sx={{fontSize: "18px"}}
+      >
+        User history
+      </Button>
       <Button
         id="basic-button"
         color="inherit"
@@ -48,6 +55,7 @@ const UserMenu = ({user}) => {
         }}
         sx={{marginTop: "15px", marginLeft: "20px"}}
       >
+        <MenuItem component={Link} to="/artists/new">Add Artist</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Box>
