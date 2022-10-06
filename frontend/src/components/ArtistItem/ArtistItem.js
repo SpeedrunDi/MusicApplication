@@ -22,7 +22,7 @@ const ArtistItem = ({artist}) => {
   let image = notImage;
 
   if (artist.image) {
-    image = apiUrl + '/uploads/' + artist.image;
+    image = apiUrl + '/' + artist.image;
   }
 
   return (

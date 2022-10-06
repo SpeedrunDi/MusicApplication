@@ -22,7 +22,7 @@ const TrackItem = ({track, onPlayMusic, index}) => {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="h5" marginRight="20px">
+        <Typography variant="h5" marginRight="20px" textTransform="capitalize">
           {track.title}
         </Typography>
       </Grid>

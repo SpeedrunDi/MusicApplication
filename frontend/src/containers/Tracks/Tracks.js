@@ -21,19 +21,23 @@ const Tracks = ({match}) => {
   };
 
   return loading ? (<Box width="max-content" margin="100px auto 0"><CircularProgress /></Box>) :
-    (<Box width="max-content" marginX="auto" paddingY="20px">
+    (<Box maxWidth="960px" marginX="auto" paddingY="20px">
       {tracks.length !== 0 ?
         (
           <>
             <Typography variant="h3" textAlign="center" marginBottom="30px">
-              {album && album.artist.name}
+              <Typography variant="span" borderBottom="2px solid black" textTransform="capitalize">
+                {album && album.artist.name}
+              </Typography>
             </Typography>
             <Typography variant="h3" textAlign="center" marginBottom="30px">
-              {tracks[0].album.title}
+              {tracks[0].album && tracks[0].album.title}
             </Typography>
-            {tracks.map((track, i) => (
-              <TrackItem key={track._id} track={track} index={i + 1} onPlayMusic={() => playMusic(track._id)}/>
-            ))}
+            <Box width="max-content" marginX="auto">
+              {tracks.map((track, i) => (
+                <TrackItem key={track._id} track={track} index={i + 1} onPlayMusic={() => playMusic(track._id)}/>
+              ))}
+            </Box>
           </>
         ) : <Typography variant="h2" textAlign="center">No Tracks</Typography>
       }

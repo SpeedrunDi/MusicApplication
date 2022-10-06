@@ -8,7 +8,7 @@ import App from './App';
 import artistsReducer from "./store/reducers/artistsReducer";
 import albumsReducer from "./store/reducers/albumsReducer";
 import tracksReducer from "./store/reducers/tracksReducer";
-import usersReducer from "./store/reducers/usersReducer";
+import usersReducer, {initialState} from "./store/reducers/usersReducer";
 import './index.css';
 
 const saveToLocalStorage = state => {
@@ -54,7 +54,10 @@ const store = createStore(
 
 store.subscribe(() => {
   saveToLocalStorage({
-    users: store.getState().users,
+    users: {
+      ...initialState,
+      user: store.getState().users.user
+    }
   })
 });
 
