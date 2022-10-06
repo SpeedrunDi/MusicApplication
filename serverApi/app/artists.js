@@ -6,6 +6,7 @@ const {nanoid} = require('nanoid');
 const config = require('../config');
 const Artist = require('../models/Artist');
 const auth = require("../middleware/auth");
+const permit = require("../middleware/permit");
 
 const router = express.Router();
 
@@ -54,6 +55,55 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
     res.send(artist);
   } catch (e) {
     res.status(400).send(e);
+  }
+});
+
+router.patch('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const artistId = req.params.id;
+
+    if (!artistId) {
+      return res.status(400).send({error: 'ID not valid'});
+    }
+
+
+    const publishedArtist = await Artist.findOneAndUpdate({
+      _id: artistId
+    }, {
+      isPublished: true
+    }, {
+      returnDocument: 'after',
+    });
+
+    if (!publishedArtist) {
+      return res.status(404).send({message: "Artist not found!"});
+    }
+
+    res.send(publishedArtist);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const artistId = req.params.id;
+
+    if (!artistId) {
+      return res.status(400).send({error: 'ID not valid'});
+    }
+
+    const deletedArtist = await Artist.findOneAndDelete({
+      _id: artistId
+    });
+
+    if (!deletedArtist) {
+      return res.status(404).send({message: "Artist not found!"});
+    }
+
+    res.send(deletedArtist);
+  } catch (e) {
+    res.sendStatus(500);
   }
 });
 

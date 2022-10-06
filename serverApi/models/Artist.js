@@ -8,7 +8,11 @@ const ArtistSchema = new Schema({
     required: true
   },
   image: String,
-  information: String
+  information: String,
+  isPublished: {
+    type: Boolean,
+    default: false
+  }
 });
 
 ArtistSchema.plugin(uniqueValidator, {message: 'Error, this {PATH} already exists'});
