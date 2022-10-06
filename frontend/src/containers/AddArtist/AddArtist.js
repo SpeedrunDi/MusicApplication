@@ -9,6 +9,7 @@ const AddArtist = ({history}) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.users.user);
   const error = useSelector(state => state.artists.error);
+  const loading = useSelector(state => state.artists.loading);
 
   useEffect(() => {
     return () => {
@@ -37,6 +38,7 @@ const AddArtist = ({history}) => {
       <ArtistForm
         onSubmit={onArtistFormSubmit}
         error={error}
+        loading={loading}
       />
     </>
   );

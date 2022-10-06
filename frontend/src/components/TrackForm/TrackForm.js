@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import {getArtistAlbums} from "../../store/actions/albumsActions";
+import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
 const TrackForm = ({onSubmit, artists, error}) => {
   const dispatch = useDispatch();
   const albums = useSelector(state => state.albums.albums);
+  const loading = useSelector(state => state.albums.loading);
+  const tracksLoading = useSelector(state => state.tracks.loading);
 
   const [newTrack, setNewTrack] = useState({
     title: "",
@@ -20,6 +23,12 @@ const TrackForm = ({onSubmit, artists, error}) => {
       dispatch(getArtistAlbums(artistId));
     }
   }, [dispatch, artistId]);
+
+  useEffect(() => {
+    if (albums.length !== 0) {
+      setArtistId(albums[0].artist._id);
+    }
+  }, [albums]);
 
   const submitFormHandler = e => {
     e.preventDefault();
@@ -82,6 +91,7 @@ const TrackForm = ({onSubmit, artists, error}) => {
               ))}
             </Select>
           </FormControl>
+          {loading && <LinearProgress/>}
         </Grid>
 
         {
@@ -120,7 +130,15 @@ const TrackForm = ({onSubmit, artists, error}) => {
         />
 
         <Grid item>
-          <Button type="submit" color="primary" variant="contained">Add</Button>
+          <ButtonWithProgress
+            type="submit"
+            color="primary"
+            variant="contained"
+            loading={tracksLoading}
+            disabled={tracksLoading}
+          >
+            Add
+          </ButtonWithProgress>
         </Grid>
       </Grid>
     </form>

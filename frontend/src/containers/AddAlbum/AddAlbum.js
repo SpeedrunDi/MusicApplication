@@ -11,6 +11,8 @@ const AddAlbum = ({history}) => {
   const user = useSelector(state => state.users.user);
   const artists = useSelector(state => state.artists.artists);
   const error = useSelector(state => state.albums.error);
+  const loading = useSelector(state => state.albums.loading);
+  const artistsLoading = useSelector(state => state.artists.loading);
 
   useEffect(() => {
     dispatch(getArtists());
@@ -44,6 +46,8 @@ const AddAlbum = ({history}) => {
         onSubmit={onAlbumFormSubmit}
         artists={artists}
         error={error}
+        loading={loading}
+        artistsLoading={artistsLoading}
       />
     </>
   );

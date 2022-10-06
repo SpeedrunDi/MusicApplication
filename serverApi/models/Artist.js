@@ -11,7 +11,7 @@ const ArtistSchema = new Schema({
   information: String
 });
 
-ArtistSchema.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique'});
+ArtistSchema.plugin(uniqueValidator, {message: 'Error, this {PATH} already exists'});
 const Artist = mongoose.model('Artist', ArtistSchema);
 
 module.exports = Artist;

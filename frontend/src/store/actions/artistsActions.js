@@ -1,4 +1,5 @@
 import axiosApi from "../../axiosApi";
+import {toast} from "react-toastify";
 
 export const GET_ARTISTS_REQUEST = 'GET_ARTISTS_REQUEST';
 export const GET_ARTISTS_SUCCESS = 'GET_ARTISTS_SUCCESS';
@@ -38,6 +39,15 @@ export const postArtist = (artistData) => {
       await axiosApi.post('/artists', artistData);
 
       dispatch(postArtistSuccess());
+      toast.success('You have successfully added an artist!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       if (e.response && e.response.data) {
         dispatch(postArtistFailure(e.response.data));

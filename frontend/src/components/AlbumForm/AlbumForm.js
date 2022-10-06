@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select} from "@mui/material";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import FileInput from "../UI/Form/FileInput/FileInput";
+import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
-const AlbumForm = ({onSubmit, artists, error}) => {
+const AlbumForm = ({onSubmit, artists, error, loading, artistsLoading}) => {
   const [newAlbum, setNewAlbum] = useState({
     title: "",
     artist: "",
@@ -88,6 +89,7 @@ const AlbumForm = ({onSubmit, artists, error}) => {
                 <FormHelperText>Path `artist` is required</FormHelperText>
             }
           </FormControl>
+          {artistsLoading && <LinearProgress/>}
         </Grid>
 
         <FormElement
@@ -109,7 +111,15 @@ const AlbumForm = ({onSubmit, artists, error}) => {
         </Grid>
 
         <Grid item>
-          <Button type="submit" color="primary" variant="contained">Add</Button>
+          <ButtonWithProgress
+            type="submit"
+            color="primary"
+            variant="contained"
+            loading={loading}
+            disabled={loading}
+          >
+            Add
+          </ButtonWithProgress>
         </Grid>
       </Grid>
     </form>

@@ -102,6 +102,15 @@ export const postTrack = (trackData) => {
       await axiosApi.post('/tracks', trackData);
 
       dispatch(postTrackSuccess());
+      toast.success('You have successfully added a song!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       if (e.response && e.response.data) {
         dispatch(postTrackFailure(e.response.data));

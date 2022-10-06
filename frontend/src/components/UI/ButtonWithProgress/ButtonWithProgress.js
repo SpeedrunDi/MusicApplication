@@ -24,7 +24,7 @@ const ButtonWithProgress = ({children, loading, ...props}) => {
       {...props}
     >
       {children}
-      {loading && <CircularProgress size={20} className={classes.buttonProgress} color="inherit"/>}
+      {loading && <CircularProgress size={20} className={classes.buttonProgress} color="primary"/>}
     </Button>
   );
 };

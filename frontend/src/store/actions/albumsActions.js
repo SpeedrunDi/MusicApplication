@@ -1,4 +1,5 @@
 import axiosApi from "../../axiosApi";
+import {toast} from "react-toastify";
 
 export const GET_ARTIST_ALBUMS_REQUEST = 'GET_ARTIST_ALBUMS_REQUEST';
 export const GET_ARTIST_ALBUMS_SUCCESS = 'GET_ARTIST_ALBUMS_SUCCESS';
@@ -59,6 +60,15 @@ export const postAlbum = (albumData) => {
       await axiosApi.post('/albums', albumData);
 
       dispatch(postAlbumSuccess());
+      toast.success('You have successfully added an album!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       if (e.response && e.response.data) {
         dispatch(postAlbumFailure(e.response.data));

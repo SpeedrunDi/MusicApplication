@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Button, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import FileInput from "../UI/Form/FileInput/FileInput";
+import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
-const ArtistForm = ({onSubmit, error}) => {
+const ArtistForm = ({onSubmit, error, loading}) => {
   const [newArtist, setNewArtist] = useState({
     name: "",
     image: "",
@@ -83,7 +84,15 @@ const ArtistForm = ({onSubmit, error}) => {
         </Grid>
 
         <Grid item>
-          <Button type="submit" color="primary" variant="contained">Add</Button>
+          <ButtonWithProgress
+            type="submit"
+            color="primary"
+            variant="contained"
+            loading={loading}
+            disabled={loading}
+          >
+            Add
+          </ButtonWithProgress>
         </Grid>
       </Grid>
     </form>
