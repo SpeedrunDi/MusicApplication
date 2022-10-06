@@ -22,7 +22,7 @@ const AlbumSchema = new Schema({
 });
 
 AlbumSchema.plugin(idValidator, {message: 'Bad ID value for {PATH}'});
-AlbumSchema.plugin(uniqueValidator, {message: 'Error, expected {PATH} to be unique'});
+AlbumSchema.plugin(uniqueValidator, {message: 'Error, this {PATH} already exists!'});
 const Album = mongoose.model('Album', AlbumSchema);
 
 module.exports = Album;

@@ -5,6 +5,7 @@ const {nanoid} = require('nanoid');
 
 const config = require('../config');
 const Album = require('../models/Album');
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -53,7 +54,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', auth, upload.single('image'), async (req, res) => {
   const {title, artist, release} = req.body;
 
   if (!title || !artist || !release) {
@@ -76,7 +77,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     res.send(album);
   } catch (e) {
-    res.status(400).send({error: e.errors});
+    res.status(400).send(e);
   }
 });
 

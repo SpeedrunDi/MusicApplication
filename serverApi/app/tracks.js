@@ -1,6 +1,7 @@
 const express = require('express');
 const Track = require('../models/Track');
 const Album = require('../models/Album');
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -50,7 +51,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const {title, album, duration} = req.body;
 
   if (!title || !album || !duration) {

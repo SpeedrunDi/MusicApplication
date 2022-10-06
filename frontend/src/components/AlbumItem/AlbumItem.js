@@ -22,7 +22,7 @@ const AlbumItem = ({album}) => {
   let image = defaultImage;
 
   if (album.image) {
-    image = apiUrl + '/uploads/' + album.image;
+    image = apiUrl + '/' + album.image;
   }
 
   return (

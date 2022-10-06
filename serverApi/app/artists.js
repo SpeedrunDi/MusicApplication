@@ -5,6 +5,7 @@ const {nanoid} = require('nanoid');
 
 const config = require('../config');
 const Artist = require('../models/Artist');
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', auth, upload.single('image'), async (req, res) => {
   const {name, information} = req.body;
 
   if (!name) {

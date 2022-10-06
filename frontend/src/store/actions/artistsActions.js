@@ -4,9 +4,9 @@ export const GET_ARTISTS_REQUEST = 'GET_ARTISTS_REQUEST';
 export const GET_ARTISTS_SUCCESS = 'GET_ARTISTS_SUCCESS';
 export const GET_ARTISTS_FAILURE = 'GET_ARTISTS_FAILURE';
 
-export const POST_ARTIST_REQUEST = 'POST_ARTISTS_REQUEST';
-export const POST_ARTIST_SUCCESS = 'POST_ARTISTS_SUCCESS';
-export const POST_ARTIST_FAILURE = 'POST_ARTISTS_FAILURE';
+export const POST_ARTIST_REQUEST = 'POST_ARTIST_REQUEST';
+export const POST_ARTIST_SUCCESS = 'POST_ARTIST_SUCCESS';
+export const POST_ARTIST_FAILURE = 'POST_ARTIST_FAILURE';
 export const CLEAR_ARTIST_ERRORS = 'CLEAR_ARTIST_ERRORS';
 
 const getArtistsRequest = () => ({type: GET_ARTISTS_REQUEST});
@@ -31,7 +31,7 @@ export const getArtists = () => {
   };
 };
 
-export const postArtists = (artistData) => {
+export const postArtist = (artistData) => {
   return async dispatch => {
     try {
       dispatch(postArtistRequest());

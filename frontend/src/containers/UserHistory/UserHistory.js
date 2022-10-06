@@ -24,7 +24,7 @@ const UserHistory = () => {
       <Typography variant="h4" textAlign="center" marginBottom="20px">History</Typography>
       {tracksHistory.length !== 0 ? (
         tracksHistory.map(trackHistory => (
-          <TracksHistoryItem trackHistory={trackHistory}/>
+          <TracksHistoryItem key={trackHistory._id} trackHistory={trackHistory}/>
         ))
       ) : <Typography variant="h3" textAlign="center">No history</Typography> }
     </Box>

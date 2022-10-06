@@ -3,7 +3,7 @@ import {Typography} from "@mui/material";
 import {Redirect} from "react-router-dom";
 import ArtistForm from "../../components/ArtistForm/ArtistForm";
 import {useDispatch, useSelector} from "react-redux";
-import {clearArtistErrors, postArtists} from "../../store/actions/artistsActions";
+import {clearArtistErrors, postArtist} from "../../store/actions/artistsActions";
 
 const AddArtist = ({history}) => {
   const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const AddArtist = ({history}) => {
     return <Redirect to="/login"/>
   }
 
-  const onArtistFormSubmit = async productData => {
-    await dispatch(postArtists(productData));
+  const onArtistFormSubmit = async artistData => {
+    await dispatch(postArtist(artistData));
     history.replace("/");
   };
 
