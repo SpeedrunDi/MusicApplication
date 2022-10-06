@@ -1,11 +1,14 @@
 import {useState} from "react";
+import {useDispatch} from "react-redux";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Box} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import {logoutUser} from "../../../../store/actions/usersActions";
 
 const UserMenu = ({user}) => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -15,6 +18,10 @@ const UserMenu = ({user}) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    dispatch(logoutUser());
   };
 
   return (
@@ -39,10 +46,9 @@ const UserMenu = ({user}) => {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        sx={{marginTop: "15px", marginLeft: "20px"}}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Box>
   );
