@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import {makeStyles} from "tss-react/mui";
 import {Link} from "react-router-dom";
 import {apiUrl} from "../../config";
@@ -9,7 +9,17 @@ import notImage from '../../assets/image-not-found.png';
 
 const useStyles = makeStyles()(() => ({
   artistBlock: {
-    margin: "0 auto 40px"
+    margin: "0 auto 40px",
+    position: "relative"
+  },
+  Unpublished: {
+    position: "absolute",
+    right: "0",
+    top: "0",
+    background: "black",
+    opacity: "0.3",
+    padding: "5px",
+    borderRadius: "10px"
   },
   artistName: {
     color: "green",
@@ -28,6 +38,16 @@ const ArtistItem = ({user, artist, loading, onPublishArtist, onDeleteArtist}) =>
 
   return (
     <Grid container alignItems="center" className={classes.artistBlock}>
+      {
+        !artist.isPublished &&
+          <Box
+            className={classes.Unpublished}
+          >
+            <Typography variant="span" color="white">
+              Unpublished
+            </Typography>
+          </Box>
+      }
       <Grid item marginRight="40px" component={Link} to={`/artists/${artist._id}`}>
         <img src={image} style={{width: "120px", height: "auto"}} alt={artist.name}/>
       </Grid>

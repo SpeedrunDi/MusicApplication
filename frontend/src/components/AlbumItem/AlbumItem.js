@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import {makeStyles} from "tss-react/mui";
 import {Link} from "react-router-dom";
 import {apiUrl} from "../../config";
@@ -9,7 +9,17 @@ import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
 const useStyles = makeStyles()(() => ({
   albumBlock: {
-    margin: "0 auto 40px"
+    margin: "0 auto 40px",
+    position: "relative"
+  },
+  Unpublished: {
+    position: "absolute",
+    right: "0",
+    top: "0",
+    background: "black",
+    opacity: "0.3",
+    padding: "5px",
+    borderRadius: "10px"
   },
   albumName: {
     marginBottom: "12px !important",
@@ -28,6 +38,16 @@ const AlbumItem = ({user, album, loading, onPublishAlbum, onDeleteAlbum}) => {
 
   return (
     <Grid container className={classes.albumBlock}>
+      {
+        !album.isPublished &&
+        <Box
+          className={classes.Unpublished}
+        >
+          <Typography variant="span" color="white">
+            Unpublished
+          </Typography>
+        </Box>
+      }
       <Grid item marginRight="40px" component={Link} to={`/albums/${album._id}`}>
         <img src={image} style={{width: "120px", height: "auto"}} alt=''/>
       </Grid>

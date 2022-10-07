@@ -1,20 +1,35 @@
 import React from 'react';
-import {Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
 const TrackItem = ({user, track, loading, onPlayMusic, index, onDeleteTrack, onPublishTrack}) => {
   return (
     <Grid
       container
+      position="relative"
       alignItems="center"
       justifyContent="space-between"
       maxWidth="sm"
       border="1px solid black"
       borderRadius="20px"
       marginBottom="40px"
-      padding="15px"
-      onClick={onPlayMusic}
+      padding="29px"
     >
+      {
+        !track.isPublished &&
+        <Box
+          position="absolute"
+          right="29px"
+          top="0"
+          padding="5px"
+          borderRadius="10px"
+          sx={{background: "black", opacity: "0.3"}}
+        >
+          <Typography variant="span" color="white">
+            Unpublished
+          </Typography>
+        </Box>
+      }
       <Grid
         container
         alignItems="center"
@@ -45,7 +60,7 @@ const TrackItem = ({user, track, loading, onPlayMusic, index, onDeleteTrack, onP
       </Grid>
       {
         user && user.role === 'admin' &&
-        <Grid item xs={12} paddingY="20px">
+        <Grid item xs={12} paddingTop="20px">
           {
             track.isPublished ?
               <ButtonWithProgress
