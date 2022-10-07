@@ -2,12 +2,23 @@ const express = require('express');
 const Track = require('../models/Track');
 const Album = require('../models/Album');
 const auth = require("../middleware/auth");
+const User = require("../models/User");
+const permit = require("../middleware/permit");
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const query = {};
+
   try {
+    query.isPublished = {$eq: true};
+
+    const token = req.get('Authorization');
+    const user = await User.findOne({token});
+    if (user && user.role === 'admin') {
+      delete query.isPublished;
+    }
+
     if (req.query.artist) {
       query.artist = {$eq: req.query.artist};
 
@@ -32,8 +43,6 @@ router.get('/', async (req, res) => {
       if (req.query.album) {
         query.album = {$eq: req.query.album};
       }
-
-
 
       const tracks = await Track
         .find(query)
@@ -71,6 +80,55 @@ router.post('/', auth, async (req, res) => {
     res.send(track);
   } catch (e) {
     res.status(400).send(e);
+  }
+});
+
+router.patch('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const trackId = req.params.id;
+
+    if (!trackId) {
+      return res.status(400).send({error: 'ID not valid'});
+    }
+
+
+    const publishedTrack = await Track.findOneAndUpdate({
+      _id: trackId
+    }, {
+      isPublished: true
+    }, {
+      returnDocument: 'after',
+    });
+
+    if (!publishedTrack) {
+      return res.status(404).send({message: "Track not found!"});
+    }
+
+    res.send(publishedTrack);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
+
+router.delete('/:id', auth, permit('admin'), async (req, res) => {
+  try {
+    const trackId = req.params.id;
+
+    if (!trackId) {
+      return res.status(400).send({error: 'ID not valid'});
+    }
+
+    const deletedTrack = await Track.findOneAndDelete({
+      _id: trackId
+    });
+
+    if (!deletedTrack) {
+      return res.status(404).send({message: "Track not found!"});
+    }
+
+    res.send(deletedTrack);
+  } catch (e) {
+    res.sendStatus(500);
   }
 });
 

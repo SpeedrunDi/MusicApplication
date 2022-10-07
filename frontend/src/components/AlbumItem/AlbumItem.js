@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {apiUrl} from "../../config";
 
 import defaultImage from '../../assets/default.jpg';
+import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
 
 const useStyles = makeStyles()(() => ({
   albumBlock: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles()(() => ({
   }
 }));
 
-const AlbumItem = ({album}) => {
+const AlbumItem = ({user, album, loading, onPublishAlbum, onDeleteAlbum}) => {
   const {classes} = useStyles();
 
   let image = defaultImage;
@@ -39,6 +40,34 @@ const AlbumItem = ({album}) => {
           {album.release}
         </Typography>
       </Grid>
+      {
+        user && user.role === 'admin' &&
+        <Grid item xs={12} paddingY="10px">
+          {
+            album.isPublished ?
+              <ButtonWithProgress
+                fullWidth
+                variant="contained"
+                color="error"
+                loading={loading}
+                disabled={loading}
+                onClick={onDeleteAlbum}
+              >
+                Delete
+              </ButtonWithProgress>
+              : <ButtonWithProgress
+                fullWidth
+                variant="contained"
+                color="success"
+                loading={loading}
+                disabled={loading}
+                onClick={onPublishAlbum}
+              >
+                Publish
+              </ButtonWithProgress>
+          }
+        </Grid>
+      }
     </Grid>
   );
 };

@@ -17,7 +17,7 @@ const useStyles = makeStyles()(() => ({
   }
 }));
 
-const ArtistItem = ({artist, loading, onPublishArtist, onDeleteArtist}) => {
+const ArtistItem = ({user, artist, loading, onPublishArtist, onDeleteArtist}) => {
   const {classes} = useStyles();
 
   let image = notImage;
@@ -36,31 +36,34 @@ const ArtistItem = ({artist, loading, onPublishArtist, onDeleteArtist}) => {
           {artist.name}
         </Typography>
       </Grid>
-      <Grid item xs={12} paddingY="10px">
-        {
-          artist.isPublished ?
-            <ButtonWithProgress
-              fullWidth
-              variant="contained"
-              color="error"
-              loading={loading}
-              disabled={loading}
-              onClick={onDeleteArtist}
-            >
-              Delete
-            </ButtonWithProgress>
-            : <ButtonWithProgress
-                fullWidth
-                variant="contained"
-                color="success"
-                loading={loading}
-                disabled={loading}
-                onClick={onPublishArtist}
-              >
-                Publish
-              </ButtonWithProgress>
-        }
-      </Grid>
+      {
+        user && user.role === 'admin' &&
+          <Grid item xs={12} paddingY="10px">
+            {
+              artist.isPublished ?
+                <ButtonWithProgress
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                  loading={loading}
+                  disabled={loading}
+                  onClick={onDeleteArtist}
+                >
+                  Delete
+                </ButtonWithProgress>
+                : <ButtonWithProgress
+                  fullWidth
+                  variant="contained"
+                  color="success"
+                  loading={loading}
+                  disabled={loading}
+                  onClick={onPublishArtist}
+                >
+                  Publish
+                </ButtonWithProgress>
+            }
+          </Grid>
+      }
     </Grid>
   );
 };

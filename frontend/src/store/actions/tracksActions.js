@@ -18,6 +18,14 @@ export const POST_TRACK_SUCCESS = 'POST_TRACK_SUCCESS';
 export const POST_TRACK_FAILURE = 'POST_TRACK_FAILURE';
 export const CLEAR_TRACK_ERRORS = 'CLEAR_TRACK_ERRORS';
 
+export const PATCH_TRACK_REQUEST = 'PATCH_TRACK_REQUEST';
+export const PATCH_TRACK_SUCCESS = 'PATCH_TRACK_SUCCESS';
+export const PATCH_TRACK_FAILURE = 'PATCH_TRACK_FAILURE';
+
+export const DELETE_TRACK_REQUEST = 'DELETE_TRACK_REQUEST';
+export const DELETE_TRACK_SUCCESS = 'DELETE_TRACK_SUCCESS';
+export const DELETE_TRACK_FAILURE = 'DELETE_TRACK_FAILURE';
+
 const getAlbumTracksRequest = () => ({type: GET_ALBUM_TRACKS_REQUEST});
 const getAlbumTracksSuccess = tracks => ({type: GET_ALBUM_TRACKS_SUCCESS, payload: tracks});
 const getAlbumTracksFailure = error => ({type: GET_ALBUM_TRACKS_FAILURE, payload: error});
@@ -35,6 +43,14 @@ const postTrackSuccess = () => ({type: POST_TRACK_SUCCESS});
 const postTrackFailure = error => ({type: POST_TRACK_FAILURE, payload: error});
 export const clearTrackErrors = () => ({type: CLEAR_TRACK_ERRORS});
 
+const patchTrackRequest = () => ({type: PATCH_TRACK_REQUEST});
+const patchTrackSuccess = () => ({type: PATCH_TRACK_SUCCESS});
+const patchTrackFailure = error => ({type: PATCH_TRACK_FAILURE, payload: error});
+
+const deleteTrackRequest = () => ({type: DELETE_TRACK_REQUEST});
+const deleteTrackSuccess = () => ({type: DELETE_TRACK_SUCCESS});
+const deleteTrackFailure = error => ({type: DELETE_TRACK_FAILURE, payload: error});
+
 export const getAlbumTracks = id => {
   return async dispatch => {
     try {
@@ -51,6 +67,10 @@ export const getAlbumTracks = id => {
 export const postTrackHistory = id => {
   return async (dispatch, getState) => {
     try {
+      if (!getState().users.user) {
+        return console.error('You are not authorized');
+      }
+
       const headers = {
         'Authorization': getState().users.user && getState().users.user.token,
       };
@@ -118,6 +138,34 @@ export const postTrack = (trackData) => {
         dispatch(postTrackFailure({global: 'No internet'}));
       }
       throw e;
+    }
+  };
+};
+
+export const patchTrack = (id) => {
+  return async dispatch => {
+    try {
+      dispatch(patchTrackRequest());
+
+      await axiosApi.patch('/tracks/' + id);
+
+      dispatch(patchTrackSuccess());
+    } catch (e) {
+      dispatch(patchTrackFailure(e));
+    }
+  };
+};
+
+export const deleteTrack = (id) => {
+  return async dispatch => {
+    try {
+      dispatch(deleteTrackRequest());
+
+      await axiosApi.delete('/tracks/' + id);
+
+      dispatch(deleteTrackSuccess());
+    } catch (e) {
+      dispatch(deleteTrackFailure(e));
     }
   };
 };

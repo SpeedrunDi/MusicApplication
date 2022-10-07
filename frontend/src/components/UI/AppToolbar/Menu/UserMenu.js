@@ -4,11 +4,13 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Box} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {logoutUser} from "../../../../store/actions/usersActions";
+import {getArtists} from "../../../../store/actions/artistsActions";
 
 const UserMenu = ({user}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -20,8 +22,10 @@ const UserMenu = ({user}) => {
     setAnchorEl(null);
   };
 
-  const logout = () => {
-    dispatch(logoutUser());
+  const logout = async () => {
+    await dispatch(logoutUser());
+    await dispatch(getArtists());
+    history.push('/');
   };
 
   return (

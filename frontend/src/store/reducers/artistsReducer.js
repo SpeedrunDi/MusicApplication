@@ -9,7 +9,7 @@ import {
 const initialState = {
   artists: [],
   loading: false,
-  patchLoading: false,
+  btnLoading: false,
   error: null
 };
 
@@ -32,18 +32,18 @@ const artistsReducer = (state = initialState, action) => {
       return {...state, error: null};
 
     case PATCH_ARTIST_REQUEST:
-      return {...state, patchLoading: true, error: null};
+      return {...state, btnLoading: true, error: null};
     case PATCH_ARTIST_SUCCESS:
-      return {...state, patchLoading: false};
+      return {...state, btnLoading: false};
     case PATCH_ARTIST_FAILURE:
-      return {...state, patchLoading: false, error: action.payload};
+      return {...state, btnLoading: false, error: action.payload};
 
     case DELETE_ARTIST_REQUEST:
-      return {...state, patchLoading: true, error: null};
+      return {...state, btnLoading: true, error: null};
     case DELETE_ARTIST_SUCCESS:
-      return {...state, patchLoading: false};
+      return {...state, btnLoading: false};
     case DELETE_ARTIST_FAILURE:
-      return {...state, patchLoading: false, error: action.payload};
+      return {...state, btnLoading: false, error: action.payload};
 
     default:
       return state;

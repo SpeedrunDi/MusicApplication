@@ -6,9 +6,10 @@ import ArtistItem from "../../components/ArtistItem/ArtistItem";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.users.user);
   const artists = useSelector(state => state.artists.artists);
   const loading = useSelector(state => state.artists.loading);
-  const patchLoading = useSelector(state => state.artists.patchLoading);
+  const btnLoading = useSelector(state => state.artists.btnLoading);
 
   useEffect(() => {
     dispatch(getArtists());
@@ -32,9 +33,10 @@ const Main = () => {
       </Typography>
       {artists.length !== 0 ? artists.map(artist => (
         <ArtistItem
-          artist={artist}
           key={artist._id}
-          loading={patchLoading}
+          user={user}
+          artist={artist}
+          loading={btnLoading}
           onPublishArtist={() => publishArtist(artist._id)}
           onDeleteArtist={() => onDeleteArtist(artist._id)}
         />

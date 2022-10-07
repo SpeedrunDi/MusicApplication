@@ -7,6 +7,7 @@ const config = require('../config');
 const Artist = require('../models/Artist');
 const auth = require("../middleware/auth");
 const permit = require("../middleware/permit");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -22,8 +23,17 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.get('/', async (req, res) => {
+  const query = {};
   try {
-    const artists = await Artist.find();
+    query.isPublished = {$eq: true};
+
+    const token = req.get('Authorization');
+    const user = await User.findOne({token});
+    if (user && user.role === 'admin') {
+      delete query.isPublished;
+    }
+
+    const artists = await Artist.find(query);
 
     res.send(artists);
   } catch {
