@@ -25,7 +25,13 @@ const UserSchema = new Schema({
     required: true,
     default: 'user',
     enum: ['user', 'admin'],
-  }
+  },
+  displayName: {
+    type: String,
+    required: true,
+  },
+  avatar: String,
+  facebookId: String,
 });
 
 UserSchema.pre('save', async function(next) {

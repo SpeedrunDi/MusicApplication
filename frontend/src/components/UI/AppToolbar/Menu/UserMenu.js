@@ -31,14 +31,6 @@ const UserMenu = ({user}) => {
   return (
     <Box>
       <Button
-        component={Link}
-        to="/user_history"
-        color="inherit"
-        sx={{fontSize: "18px"}}
-      >
-        User history
-      </Button>
-      <Button
         id="basic-button"
         color="inherit"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -62,6 +54,7 @@ const UserMenu = ({user}) => {
         <MenuItem onClick={handleClose} component={Link} to="/artists/new">Add Artist</MenuItem>
         <MenuItem onClick={handleClose} component={Link} to="/albums/new">Add Album</MenuItem>
         <MenuItem onClick={handleClose} component={Link} to="/tracks/new">Add Track</MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to="/user_history">User history</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Box>
