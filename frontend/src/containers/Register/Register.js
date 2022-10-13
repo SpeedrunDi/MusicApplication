@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {clearRegisterErrors, registerUser} from "../../store/actions/usersActions";
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
+import FacebookLogin from "../../components/FacebookLogin/FacebookLogin";
 
 const useStyles = makeStyles()(theme => ({
   paper: {
@@ -36,6 +37,7 @@ const Register = ({history}) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
+    displayName: ''
   });
 
   useEffect(() => {
@@ -92,6 +94,15 @@ const Register = ({history}) => {
           />
 
           <FormElement
+            required={true}
+            label="displayName"
+            name="displayName"
+            value={user.displayName}
+            onChange={inputChangeHandler}
+            error={getFieldError('displayName')}
+          />
+
+          <FormElement
             type="password"
             required={true}
             label="Password"
@@ -114,9 +125,13 @@ const Register = ({history}) => {
               Sign Up
             </ButtonWithProgress>
           </Grid>
+
+          <Grid item xs={12}>
+            <FacebookLogin history={history}/>
+          </Grid>
         </Grid>
 
-        <Grid container justifyContent="flex-end">
+        <Grid container justifyContent="flex-end" marginTop="10px">
           <Grid item>
             <Link component={RouterLink} to="/login">
               Already have an account? Sign in

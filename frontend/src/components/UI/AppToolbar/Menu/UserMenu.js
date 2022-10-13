@@ -47,7 +47,7 @@ const UserMenu = ({user}) => {
         onClick={handleClick}
         sx={{fontSize: "18px"}}
       >
-        Hello, {user.username}!
+        Hello, {user.displayName}!
       </Button>
       <Menu
         id="basic-menu"
