@@ -28,19 +28,25 @@ const Main = () => {
   return loading ? (<Box width="max-content" margin="100px auto 0"><CircularProgress /></Box>)
     : (
     <Box width="max-content" marginX="auto" paddingY="20px">
-      <Typography variant="h2" marginBottom="40px" textAlign="center">
-        Artists
-      </Typography>
-      {artists.length !== 0 ? artists.map(artist => (
-        <ArtistItem
-          key={artist._id}
-          user={user}
-          artist={artist}
-          loading={btnLoading}
-          onPublishArtist={() => publishArtist(artist._id)}
-          onDeleteArtist={() => onDeleteArtist(artist._id)}
-        />
-      )): <Typography variant="h2">No artists</Typography>}
+      {artists.length !== 0 ?
+        <>
+          <Typography variant="h2" marginBottom="40px" textAlign="center">
+            Artists
+          </Typography>
+          {
+            artists.map(artist => (
+              <ArtistItem
+                key={artist._id}
+                user={user}
+                artist={artist}
+                loading={btnLoading}
+                onPublishArtist={() => publishArtist(artist._id)}
+                onDeleteArtist={() => onDeleteArtist(artist._id)}
+              />
+            ))
+          }
+        </> : <Typography variant="h2">No artists</Typography>
+      }
     </Box>
   );
 };

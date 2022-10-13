@@ -16,7 +16,7 @@ export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_FAILURE = 'LOGOUT_USER_FAILURE';
 
 const registerUserRequest = () => ({type: REGISTER_USER_REQUEST});
-const registerUserSuccess = () => ({type: REGISTER_USER_SUCCESS});
+const registerUserSuccess = user => ({type: REGISTER_USER_SUCCESS, payload: user});
 const registerUserFailure = error => ({type: REGISTER_USER_FAILURE, payload: error});
 export const clearRegisterErrors = () => ({type: CLEAR_REGISTER_ERRORS});
 
@@ -34,9 +34,9 @@ export const registerUser = userData => {
     try {
       dispatch(registerUserRequest());
 
-      await axiosApi.post('/users', userData);
+      const response = await axiosApi.post('/users', userData);
 
-      dispatch(registerUserSuccess());
+      dispatch(registerUserSuccess(response.data));
       toast.success('You have successfully registered!', {
         position: "top-right",
         autoClose: 4000,
