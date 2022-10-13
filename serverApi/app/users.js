@@ -1,19 +1,42 @@
+const path = require("path");
 const express = require('express');
 const axios = require("axios");
 const {nanoid} = require("nanoid");
+const multer = require("multer");
+
 const User = require('../models/User');
 const config = require('../config');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  const {username, password} = req.body;
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, config.uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, nanoid() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({storage});
+
+router.post('/', upload.single('avatar'), async (req, res) => {
+  const {username, password, displayName} = req.body;
 
   if (!username || !password) {
     return res.status(400).send({error: 'Data not valid'});
   }
 
-  const userData = {username, password};
+  const userData = {
+    username,
+    password,
+    displayName,
+    avatar: null
+  };
+
+  if (req.file) {
+    userData.avatar = 'uploads/' + req.file.filename;
+  }
 
   try {
     const user = new User(userData);
@@ -67,14 +90,15 @@ router.post('/facebookLogin', async (req, res) => {
       return res.status(401).send({error: 'Wrong User ID'});
     }
 
-    let user = await User.findOne({facebookId: req.body.id});
+    let user = await User.findOne({username: req.body.id});
 
     if (!user) {
       user = new User({
-        username: req.body.username,
+        username: req.body.id,
         password: nanoid(),
-        facebookId: req.body.id,
-        displayName: req.body.name
+        displayName: req.body.name,
+        avatar: req.body.picture.data.url,
+        avatarIsLink: true
       });
     }
 

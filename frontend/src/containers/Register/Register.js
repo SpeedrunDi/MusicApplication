@@ -8,6 +8,7 @@ import {clearRegisterErrors, registerUser} from "../../store/actions/usersAction
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
 import FacebookLogin from "../../components/FacebookLogin/FacebookLogin";
+import FileInput from "../../components/UI/Form/FileInput/FileInput";
 
 const useStyles = makeStyles()(theme => ({
   paper: {
@@ -37,7 +38,8 @@ const Register = ({history}) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
-    displayName: ''
+    displayName: '',
+    avatar: ''
   });
 
   useEffect(() => {
@@ -52,10 +54,23 @@ const Register = ({history}) => {
     setUser(prev => ({...prev, [name]: value}));
   };
 
+  const fileChangeHandler = e => {
+    const name = e.target.name;
+    const file = e.target.files[0];
+
+    setUser(prevState => ({...prevState, [name]: file}));
+  };
+
   const submitFormHandler = async e => {
     e.preventDefault();
 
-    await dispatch(registerUser({...user}));
+    const formData = new FormData();
+
+    Object.keys(user).forEach(key => {
+      formData.append(key, user[key]);
+    });
+
+    await dispatch(registerUser(formData));
 
     history.replace('/');
   };
@@ -111,6 +126,14 @@ const Register = ({history}) => {
             onChange={inputChangeHandler}
             error={getFieldError('password')}
           />
+
+          <Grid item xs={12}>
+            <FileInput
+              onChange={fileChangeHandler}
+              name="avatar"
+              label="Avatar"
+            />
+          </Grid>
 
           <Grid item xs={12}>
             <ButtonWithProgress

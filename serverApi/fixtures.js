@@ -16,13 +16,17 @@ const run = async () => {
     }
 
     const [admin, user] = await User.create({
-        username: 'admin',
+        username: 'admin@gmail.com',
+        avatar: 'https://www.iconexperience.com/_img/o_collection_png/green_dark_grey/512x512/plain/user.png',
+        displayName: 'Admin',
         password: 'admin',
         role: 'admin',
         token: nanoid(),
+        avatarIsLink: true,
     }, {
-        username: 'user',
+        username: 'user@gmail.com',
         password: 'user',
+        displayName: 'User',
         role: 'user',
         token: nanoid(),
     });

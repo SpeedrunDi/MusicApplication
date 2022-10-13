@@ -31,7 +31,10 @@ const UserSchema = new Schema({
     required: true,
   },
   avatar: String,
-  facebookId: String,
+  avatarIsLink: {
+    type: Boolean,
+    default: false
+  }
 });
 
 UserSchema.pre('save', async function(next) {
