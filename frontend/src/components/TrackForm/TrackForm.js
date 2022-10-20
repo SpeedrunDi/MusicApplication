@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select} from "@mui/material";
+import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select, Tooltip} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import {getArtistAlbums} from "../../store/actions/albumsActions";
@@ -84,6 +84,12 @@ const TrackForm = ({onSubmit, artists, error}) => {
               label="Select artist"
               onChange={e => setArtistId(e.target.value)}
             >
+              {
+                artists.length === 0 &&
+                <MenuItem value="" disabled>
+                  No published artists
+                </MenuItem>
+              }
               {artists !== 0 && artists.map(artist => (
                 <MenuItem key={artist._id} value={artist._id}>
                   {artist.name}
@@ -130,15 +136,24 @@ const TrackForm = ({onSubmit, artists, error}) => {
         />
 
         <Grid item>
-          <ButtonWithProgress
-            type="submit"
-            color="primary"
-            variant="contained"
-            loading={tracksLoading}
-            disabled={tracksLoading}
+          <Tooltip
+            title={
+              (artists.length === 0 && "No published artists")
+              || (albums.length === 0 && "No published albums")
+            }
           >
-            Add
-          </ButtonWithProgress>
+            <span>
+              <ButtonWithProgress
+                type="submit"
+                color="primary"
+                variant="contained"
+                loading={tracksLoading}
+                disabled={tracksLoading || artists.length === 0 || albums.length === 0}
+              >
+              Add
+            </ButtonWithProgress>
+            </span>
+          </Tooltip>
         </Grid>
       </Grid>
     </form>

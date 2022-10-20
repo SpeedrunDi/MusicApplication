@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select} from "@mui/material";
+import {FormControl, FormHelperText, Grid, InputLabel, LinearProgress, MenuItem, Select, Tooltip} from "@mui/material";
 import FormElement from "../UI/Form/FormElement/FormElement";
 import FileInput from "../UI/Form/FileInput/FileInput";
 import ButtonWithProgress from "../UI/ButtonWithProgress/ButtonWithProgress";
@@ -78,6 +78,12 @@ const AlbumForm = ({onSubmit, artists, error, loading, artistsLoading}) => {
               label="Select artist"
               onChange={inputChangeHandler}
             >
+              {
+                artists.length === 0 &&
+                <MenuItem value="" disabled>
+                  No published artists
+                </MenuItem>
+              }
               {artists !== 0 && artists.map(artist => (
                 <MenuItem key={artist._id} value={artist._id}>
                   {artist.name}
@@ -111,15 +117,23 @@ const AlbumForm = ({onSubmit, artists, error, loading, artistsLoading}) => {
         </Grid>
 
         <Grid item>
-          <ButtonWithProgress
-            type="submit"
-            color="primary"
-            variant="contained"
-            loading={loading}
-            disabled={loading}
+          <Tooltip
+            title={
+              artists.length === 0 && "No published artists"
+            }
           >
+            <span>
+              <ButtonWithProgress
+                type="submit"
+                color="primary"
+                variant="contained"
+                loading={loading}
+                disabled={loading || artists.length === 0}
+              >
             Add
           </ButtonWithProgress>
+            </span>
+          </Tooltip>
         </Grid>
       </Grid>
     </form>

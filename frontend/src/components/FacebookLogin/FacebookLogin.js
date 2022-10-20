@@ -10,7 +10,6 @@ const FacebookLogin = ({history}) => {
   const dispatch = useDispatch();
 
   const facebookResponse = async response => {
-    console.log(response);
     await dispatch(facebookLogin(response));
     history.push('/');
   };
